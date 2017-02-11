@@ -7,6 +7,10 @@
 
 #include <iostream>
 
+#if defined _WIN32 && defined DELETE
+  #undef DELETE
+#endif
+
 namespace uWS {
 
 struct Header {
@@ -187,7 +191,7 @@ struct HttpResponse {
     }
 
     //template <bool isServer>
-    void freeResponse(typename HttpSocket<true>::Data *httpData) {
+    void freeResponse(HttpSocket<true>::Data *httpData) {
         if (httpData->preAllocatedResponse) {
             delete this;
         } else {
